@@ -1,12 +1,23 @@
+"use client";
 import Image from "next/image";
-import Link from "next/link";
 import blayLogo from "../assets/blayLogo.png";
 import landingImg from "../assets/landing-graphics.svg";
 import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
+import { ConnectButton, useAccount } from "@particle-network/connectkit";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import CustomButton from "@/components/CustomButton";
 
 export default function Landing() {
+  const { isConnected } = useAccount();
+  const navigate = useRouter();
+  useEffect(() => {
+    if (isConnected) {
+      navigate.push("/chat");
+    }
+  }, [isConnected]);
   return (
     <div className="blay-main">
       <div className="header">
@@ -27,9 +38,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="bottom-signin">
-            <button>
-              <Link href="/chat">Sign In</Link>
-            </button>
+            <CustomButton />
             <ul>
               <li>
                 <a href="">

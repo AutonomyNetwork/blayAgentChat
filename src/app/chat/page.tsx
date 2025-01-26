@@ -1,20 +1,18 @@
 "use client";
+import CustomButton from "@/components/CustomButton";
+import ShareIcon from "@/svg/ShareIcon";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import arrowRight from "../../assets/arrowRight.svg";
+import linkArrow from "../../assets/ArrowSquareOut.svg";
 import blayLogo from "../../assets/blayLogo.png";
 import chatIcon from "../../assets/chatIcon.svg";
+import chatSend from "../../assets/chatSend.svg";
 import smartWallet from "../../assets/smart-wallet.svg";
 import telIcon from "../../assets/telegram.svg";
 import webIcon from "../../assets/web.svg";
 import xIcon from "../../assets/x.svg";
-import linkArrow from "../../assets/ArrowSquareOut.svg";
-import loader from "../../assets/loader.gif";
-import chatSend from "../../assets/chatSend.svg";
-import profilePic from "../../assets/profile-pic.png";
-import swapIcon from "../../assets/swapIcon.svg";
-import Link from "next/link";
-import React, { useState } from "react";
-import ShareIcon from "@/svg/ShareIcon";
 
 export default function Chat() {
   const [showFirstDiv, setShowFirstDiv] = useState(true);
@@ -36,7 +34,7 @@ export default function Chat() {
                 CHAT
               </div>
               <div className="bottom-signin">
-                <button>SIgn In</button>
+                <CustomButton />
                 <ul>
                   <li>
                     <a href="">
