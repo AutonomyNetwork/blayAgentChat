@@ -202,6 +202,7 @@ export default function Chat() {
                         </li>
                         <li>
                           <div onClick={() => {
+                            setResMsg((prev: any) => [...prev, { type: "user", msg: "My account balance" }])
                             sendMessage({ data: { message: "My account balance" } }).then((res) => {
                               setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
                             })
