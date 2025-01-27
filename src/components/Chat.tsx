@@ -232,7 +232,11 @@ export default function Chat() {
                   </div>
                   <form onSubmit={(e) => {
                     e.preventDefault()
-                    sendMessage({ data: { message: msg } })
+                    setResMsg((prev: any) => [...prev, { type: "user", msg: msg }])
+                    sendMessage({ data: { message: msg } }).then((res) => {
+                      setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }]);
+                      setMsg("");
+                    })
                   }}>
                     <div className="chat-input">
                       <input disabled={msgLoading} type="text" value={msgLoading ? "Thinking..." : msg} placeholder="Message Blay" onChange={(e) => {
