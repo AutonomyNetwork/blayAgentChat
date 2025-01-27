@@ -236,6 +236,8 @@ export default function Chat() {
                     sendMessage({ data: { message: msg } }).then((res) => {
                       setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }]);
                       setMsg("");
+                    }).catch((err:any) => {
+                      
                     })
                   }}>
                     <div className="chat-input">
