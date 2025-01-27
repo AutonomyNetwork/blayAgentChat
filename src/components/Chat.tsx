@@ -3,7 +3,7 @@ import CustomButton from "@/components/CustomButton";
 import ShareIcon from "@/svg/ShareIcon";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import arrowRight from "../assets/arrowRight.svg";
 import linkArrow from "../assets/ArrowSquareOut.svg";
 import blayLogo from "../assets/blayLogo.png";
@@ -12,18 +12,29 @@ import chatSend from "../assets/chatSend.svg";
 import smartWallet from "../assets/smart-wallet.svg";
 import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
+import loader from "../assets/loader.gif";
 import xIcon from "../assets/x.svg";
 import { useAccount } from "@particle-network/connectkit";
 import { userService } from "@/helpers/userService";
+import useAxios from "@/helpers/useAxios";
+import { AppContext } from "@/app/Context";
+import Terminal from "./Terminal";
 
 export default function Chat() {
-
-  const [showFirstDiv, setShowFirstDiv] = useState(true);
+  const { onCall: createUser, data: createUserData, loading } = useAxios({
+    api: "/user/create",
+    method: "post",
+    needToken: true,
+  });
+  const { showChat, setShowChat } = useContext(AppContext);
   const { address } = useAccount()
   const { fetchUserWallet } = userService()
   const handleToggle = () => {
-    setShowFirstDiv(!showFirstDiv); // Toggle the state
+    createUser({}).then((res) => {
+      setShowChat(true); // Toggle the state
+    });
   };
+
 
   useEffect(() => {
     if (address)
@@ -72,7 +83,7 @@ export default function Chat() {
               <Image src={arrowRight} alt="" />
             </div>
             <div className="chat-interface">
-              {showFirstDiv ? (
+              {showChat === false ? (
                 <div className="connect-block">
                   <div className="connect-item">
                     <div className="connect-smart">
@@ -88,14 +99,14 @@ export default function Chat() {
                           </div>
                         </div>
                       </div>
-                      <div className="create-wallet">
-                        <button onClick={handleToggle}>
-                          {showFirstDiv ? "Create wallet" : "Show First Div"}
-                        </button>
-                      </div>
-                      {/* <div className="loader-block">
-                      <Image src={loader} alt="" />
-                    </div> */}
+                      {loading ? <div className="loader-block">
+                        <Image src={loader} alt="" />
+                      </div> :
+                        <div className="create-wallet">
+                          <button onClick={handleToggle}>
+                            Create wallet
+                          </button>
+                        </div>}
                     </div>
                     <div className="connect-smart">
                       <div className="connect-smart-item">
@@ -158,25 +169,7 @@ export default function Chat() {
                   </div> */}
                   <div>
                     <div>
-                      <code>
-                        &lt; Initializing Blay AI Core... <br />
-                        &lt; Synaptic algorithms: ONLINE <br />
-                        &lt; Chaos-to-Order protocols: ACTIVE
-                        <br />
-                        &lt; Cognitive wit level: MAXIMIZED
-                        <br />
-                        &lt; Charm factor: INFINITE <br />
-                        &lt; Connection to Bitlayer network: SECURE
-                        <br />
-                      </code>
-                      <br />
-                      <code>
-                        Blay is ready to roll. <br />
-                        Think smart. Work smart. Play smart. <br />
-                        Welcome to Bitlayer, where Blay turns problems into
-                        possibilities. <br />
-                        Ready for your clever solutions? <br />
-                      </code>
+                      <Terminal />
                     </div>
                     <div className="chat-default">
                       <ul>

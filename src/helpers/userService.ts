@@ -9,11 +9,6 @@ export const userService = () => {
     needToken: true,
   });
 
-  const { onCall: createUser, data: createUserData, } = useAxios({
-    api: "/user/create",
-    method: "post",
-    needToken: true,
-  });
 
   const { onCall: getUserWallet } = useAxios({
     api: "/user/wallet",
@@ -21,7 +16,7 @@ export const userService = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { setUser, setWallet } = useContext(AppContext)
+  const { setUser, setShowChat } = useContext(AppContext)
 
 
   const fetchUser = async () => {
@@ -31,7 +26,10 @@ export const userService = () => {
     try {
       const userData = await getUser({});
       console.log(userData);
-
+      
+      if (userData?.result?.id) {
+        setShowChat(true)
+      }
       if (!userData) throw new Error("User not found.");
       setUser(userData);
     } catch (err: any) {
@@ -41,22 +39,8 @@ export const userService = () => {
     }
   };
 
-  const createUserIfNotExists = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      await createUser({});
-      if (!createUserData) throw new Error("Failed to create user.");
-      setUser(createUserData);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const fetchUserWallet = async ({ address }: any) => {
+
     setLoading(true);
     setError(null);
 
@@ -64,6 +48,7 @@ export const userService = () => {
       const resp = await getUserWallet({ data: { address: address?.toLowerCase() } });
       if (resp?.result) {
         window.sessionStorage.setItem("token", resp?.result);
+        fetchUser();
       }
     } catch (err: any) {
       setError(err.message);

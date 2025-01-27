@@ -26,7 +26,6 @@ const useAxios = ({ api, method, needToken }: any) => {
     try {
       let result;
       if (method === "get" || method === "delete") {
-
         result = await endpoint[method](query ? `${api}/${query}` : api, {
           headers,
           params,
