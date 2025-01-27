@@ -195,14 +195,19 @@ export default function Chat() {
                           </div>
                         </li>
                         <li>
-                          <div>
+                          <div onClick={() => {
+                            setResMsg((prev: any) => [...prev, { type: "user", msg: "BTC price" }])
+                            sendMessage({ data: { message: "BTC price" } }).then((res) => {
+                              setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
+                            })
+                          }}>
                             <ShareIcon />
                             <div>BTC price</div>
                           </div>
                         </li>
                         <li>
                           <div onClick={() => {
-                            setResMsg((prev: any) => [...prev, { type: "user", msg: "My account balance" }])
+                            setResMsg((prev: any) => [...prev, { type: "user", msg: "My account" }])
                             sendMessage({ data: { message: "My account balance" } }).then((res) => {
                               setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
                             })
