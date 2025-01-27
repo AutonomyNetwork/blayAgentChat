@@ -19,15 +19,24 @@ import { userService } from "@/helpers/userService";
 import useAxios from "@/helpers/useAxios";
 import { AppContext } from "@/app/Context";
 import Terminal from "./Terminal";
-
+import { useRouter } from "next/navigation";
+import ReactMarkdown from 'react-markdown';
 export default function Chat() {
-  const { onCall: createUser, data: createUserData, loading } = useAxios({
+  const navigate = useRouter();
+  const { onCall: createUser, loading } = useAxios({
     api: "/user/create",
     method: "post",
     needToken: true,
   });
+  const { onCall: sendMessage, loading: msgLoading } = useAxios({
+    api: "/user/message",
+    method: "post",
+    needToken: true,
+  });
+  const [msg, setMsg] = useState("");
+  const [resMsgs, setResMsg] = useState<any>([]);
   const { showChat, setShowChat } = useContext(AppContext);
-  const { address } = useAccount()
+  const { address, isDisconnected, isConnecting, isReconnecting } = useAccount()
   const { fetchUserWallet } = userService()
   const handleToggle = () => {
     createUser({}).then((res) => {
@@ -40,6 +49,12 @@ export default function Chat() {
     if (address)
       fetchUserWallet({ address })
   }, [address])
+
+  useEffect(() => {
+    if (!isConnecting && !isReconnecting && isDisconnected) {
+      navigate.push("/")
+    }
+  }, [isDisconnected, isConnecting, isReconnecting])
   return (
     <div className="blay-main">
       <div className="header">
@@ -186,7 +201,11 @@ export default function Chat() {
                           </div>
                         </li>
                         <li>
-                          <div>
+                          <div onClick={() => {
+                            sendMessage({ data: { message: "My account balance" } }).then((res) => {
+                              setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
+                            })
+                          }}>
                             <ShareIcon />
                             <div>My account balance</div>
                           </div>
@@ -200,12 +219,22 @@ export default function Chat() {
                       </ul>
                     </div>
                   </div>
-                  <div className="chat-input">
-                    <input type="text" placeholder="Message Blay" />
-                    <button>
-                      <Image src={chatSend} alt="Send" />
-                    </button>
-                  </div>
+                  {resMsgs.map((itm: any, i: number) => (
+                    <ReactMarkdown key={i} children={itm.msg} />
+                  ))}
+                  <form onSubmit={(e) => {
+                    e.preventDefault()
+                    sendMessage({ data: { message: msg } })
+                  }}>
+                    <div className="chat-input">
+                      <input disabled={msgLoading} type="text" value={msgLoading ? "Thinking..." : msg} placeholder="Message Blay" onChange={(e) => {
+                        setMsg(e.target.value)
+                      }} />
+                      <button>
+                        <Image src={chatSend} alt="Send" />
+                      </button>
+                    </div>
+                  </form>
                 </div>
               )}
             </div>
