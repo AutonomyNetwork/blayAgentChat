@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import useAxios from "./useAxios";
 import { AppContext } from "@/app/Context";
 
-export const userService = () => {
+export const useUserService = () => {
   const { onCall: getUser } = useAxios({
     api: "/user",
     method: "get",

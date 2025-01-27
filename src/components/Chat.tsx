@@ -1,27 +1,27 @@
 "use client";
+import { AppContext } from "@/app/Context";
 import CustomButton from "@/components/CustomButton";
+import useAxios from "@/helpers/useAxios";
+import { useUserService } from "@/helpers/userService";
 import ShareIcon from "@/svg/ShareIcon";
+import { useAccount } from "@particle-network/connectkit";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
+import ReactMarkdown from 'react-markdown';
 import arrowRight from "../assets/arrowRight.svg";
 import linkArrow from "../assets/ArrowSquareOut.svg";
 import blayLogo from "../assets/blayLogo.png";
 import chatIcon from "../assets/chatIcon.svg";
 import chatSend from "../assets/chatSend.svg";
+import loader from "../assets/loader.gif";
+import profilePic from "../assets/profile-pic.png";
 import smartWallet from "../assets/smart-wallet.svg";
 import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
-import loader from "../assets/loader.gif";
-import profilePic from "../assets/profile-pic.png";
 import xIcon from "../assets/x.svg";
-import { useAccount } from "@particle-network/connectkit";
-import { userService } from "@/helpers/userService";
-import useAxios from "@/helpers/useAxios";
-import { AppContext } from "@/app/Context";
 import Terminal from "./Terminal";
-import { useRouter } from "next/navigation";
-import ReactMarkdown from 'react-markdown';
 export default function Chat() {
   const navigate = useRouter();
   const { onCall: createUser, loading } = useAxios({
@@ -38,7 +38,7 @@ export default function Chat() {
   const [resMsgs, setResMsg] = useState<any>([]);
   const { showChat, setShowChat } = useContext(AppContext);
   const { address, isDisconnected, isConnecting, isReconnecting } = useAccount()
-  const { fetchUserWallet } = userService()
+  const { fetchUserWallet } = useUserService()
   const handleToggle = () => {
     createUser({}).then((res) => {
       setShowChat(true); // Toggle the state
