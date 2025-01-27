@@ -3,7 +3,7 @@ import CustomButton from "@/components/CustomButton";
 import ShareIcon from "@/svg/ShareIcon";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import arrowRight from "../assets/arrowRight.svg";
 import linkArrow from "../assets/ArrowSquareOut.svg";
 import blayLogo from "../assets/blayLogo.png";
@@ -13,6 +13,7 @@ import smartWallet from "../assets/smart-wallet.svg";
 import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import loader from "../assets/loader.gif";
+import profilePic from "../assets/profile-pic.png";
 import xIcon from "../assets/x.svg";
 import { useAccount } from "@particle-network/connectkit";
 import { userService } from "@/helpers/userService";
@@ -44,11 +45,19 @@ export default function Chat() {
     });
   };
 
+  const bottomRef = React.useRef<HTMLDivElement>(null);
+
 
   useEffect(() => {
     if (address)
       fetchUserWallet({ address })
   }, [address])
+
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [resMsgs]);
 
   useEffect(() => {
     if (!isConnecting && !isReconnecting && isDisconnected) {
@@ -157,77 +166,70 @@ export default function Chat() {
                 </div>
               ) : (
                 <div className="chat-section">
-                  {/* <div className="chat-block">
-                    <div className="agent-chat">
+                  <div style={{ overflowY: "auto", height: "58vh" }}>
+                    <div>
                       <div>
-                        <Image src={profilePic} alt="" />
+                        <Terminal />
                       </div>
-                      <div className="agent-msg">
-                        <div>
-                          Greetings, I am Blay (Bitlayer’s AI Agent). My core
-                          function is to help in automation of tasks, here are
-                          some of the things i can help you with.
-                        </div>
-                        <div className="margin-small-top">Automation of</div>
+                      <div className="chat-default">
                         <ul>
-                          <li>Buy Tokens</li>
-                          <li>Dedicated Support </li>
-                          <li>Help in swapping tokens </li>
-                          <li>Context Sourcing Guidance</li>
+                          <li>
+                            <div>
+                              <ShareIcon />
+                              <div>Swap tokens</div>
+                            </div>
+                          </li>
+                          <li>
+                            <div onClick={() => {
+                              setResMsg((prev: any) => [...prev, { type: "user", msg: "BTC price" }])
+                              sendMessage({ data: { message: "BTC price" } }).then((res) => {
+                                setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
+                              })
+                            }}>
+                              <ShareIcon />
+                              <div>BTC price</div>
+                            </div>
+                          </li>
+                          <li>
+                            <div onClick={() => {
+                              setResMsg((prev: any) => [...prev, { type: "user", msg: "My account balance" }])
+                              sendMessage({ data: { message: "My account balance" } }).then((res) => {
+                                setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
+                              })
+                            }}>
+                              <ShareIcon />
+                              <div>My account balance</div>
+                            </div>
+                          </li>
+                          <li>
+                            <div>
+                              <ShareIcon />
+                              <div>Send ETH to</div>
+                            </div>
+                          </li>
                         </ul>
                       </div>
                     </div>
-                    <div className="user-chat">
-                      <div>Hello</div>
-                      <div>How are you?</div>
+                    <div className="chat-block">
+                      {resMsgs.map((itm: any, i: number) => (
+                        <>
+                          {itm.type === "api" ? (
+                            <div className="agent-chat">
+                              <div>
+                                <Image src={profilePic} alt="" />
+                              </div>
+                              <div className="agent-msg">
+                                <ReactMarkdown key={i} children={itm.msg} />
+                              </div>
+                            </div>
+                          ) : <div className="user-chat">
+                            {itm.msg}
+                          </div>}
+                        </>
+                      ))}
                     </div>
-                  </div> */}
-                  <div>
-                    <div>
-                      <Terminal />
-                    </div>
-                    <div className="chat-default">
-                      <ul>
-                        <li>
-                          <div>
-                            <ShareIcon />
-                            <div>Swap tokens</div>
-                          </div>
-                        </li>
-                        <li>
-                          <div onClick={() => {
-                            setResMsg((prev: any) => [...prev, { type: "user", msg: "BTC price" }])
-                            sendMessage({ data: { message: "BTC price" } }).then((res) => {
-                              setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
-                            })
-                          }}>
-                            <ShareIcon />
-                            <div>BTC price</div>
-                          </div>
-                        </li>
-                        <li>
-                          <div onClick={() => {
-                            setResMsg((prev: any) => [...prev, { type: "user", msg: "My account" }])
-                            sendMessage({ data: { message: "My account balance" } }).then((res) => {
-                              setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
-                            })
-                          }}>
-                            <ShareIcon />
-                            <div>My account balance</div>
-                          </div>
-                        </li>
-                        <li>
-                          <div>
-                            <ShareIcon />
-                            <div>Send ETH to</div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
+                    <div ref={bottomRef} />
                   </div>
-                  {resMsgs.map((itm: any, i: number) => (
-                    <ReactMarkdown key={i} children={itm.msg} />
-                  ))}
                   <form onSubmit={(e) => {
                     e.preventDefault()
                     sendMessage({ data: { message: msg } })
