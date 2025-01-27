@@ -20,8 +20,8 @@ const useAxios = ({ api, method, needToken }: any) => {
       return;
     }
 
-    if (tkn && !headers["Authorization"])
-      headers["Authorization"] = `Bearer ${tkn}`;
+    if (tkn && !headers["session-id"])
+      headers["session-id"] = `${tkn}`;
 
     try {
       let result;
