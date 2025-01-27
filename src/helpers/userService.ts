@@ -25,9 +25,7 @@ export const useUserService = () => {
 
     try {
       const userData = await getUser({});
-      console.log(userData);
-      
-      if (userData?.result?.id) {
+      if (userData?.result?.wallet_address) {
         setShowChat(true)
       }
       if (!userData) throw new Error("User not found.");
