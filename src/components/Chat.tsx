@@ -41,7 +41,8 @@ export default function Chat() {
   const { fetchUserWallet } = useUserService()
   const handleToggle = () => {
     createUser({}).then((res) => {
-      setShowChat(true); // Toggle the state
+      if (res?.result)
+        setShowChat(true); // Toggle the state
     });
   };
 
@@ -219,7 +220,9 @@ export default function Chat() {
                                 <Image src={profilePic} alt="" />
                               </div>
                               <div className="agent-msg">
-                                <ReactMarkdown key={i} children={itm.msg} />
+                                <ReactMarkdown key={i}>
+                                  {itm.msg}
+                                </ReactMarkdown>
                               </div>
                             </div>
                           ) : <div className="user-chat">
@@ -236,8 +239,8 @@ export default function Chat() {
                     sendMessage({ data: { message: msg } }).then((res) => {
                       setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }]);
                       setMsg("");
-                    }).catch((err:any) => {
-                      
+                    }).catch(() => {
+
                     })
                   }}>
                     <div className="chat-input">

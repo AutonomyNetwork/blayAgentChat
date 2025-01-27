@@ -1,14 +1,14 @@
 "use client";
+import CustomButton from "@/components/CustomButton";
+import { useAccount } from "@particle-network/connectkit";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import blayLogo from "../assets/blayLogo.png";
 import landingImg from "../assets/landing-graphics.svg";
 import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
-import { ConnectButton, useAccount } from "@particle-network/connectkit";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import CustomButton from "@/components/CustomButton";
 
 export default function Landing() {
   const { isConnected } = useAccount();
