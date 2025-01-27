@@ -1,11 +1,12 @@
 'use client';
 
+import { AppContext } from '@/app/Context';
 import { ConnectKitProvider, createConfig } from '@particle-network/connectkit';
 import { authWalletConnectors } from '@particle-network/connectkit/auth';
 import { mainnet, solana } from '@particle-network/connectkit/chains';
 import { evmWalletConnectors } from '@particle-network/connectkit/evm';
 import { wallet, EntryPosition } from '@particle-network/connectkit/wallet';
-import React from 'react';
+import React, { useState } from 'react';
 
 //Retrived from https://dashboard.particle.network
 const projectId = "27ae829b-29d2-406e-a9e6-fd58bc053eae" as string;
@@ -28,9 +29,9 @@ const config = createConfig({
       { walletId: 'coinbaseWallet', label: 'popular' },
     ],
     splitEmailAndPhone: false, // Optional, displays Email and phone number entry separately
-    collapseWalletList: false, // Optional, hide wallet list behind a button
+    collapseWalletList: true, // Optional, hide wallet list behind a button
     hideContinueButton: false, // Optional, remove "Continue" button underneath Email or phone number entry
-    connectorsOrder: ['email', 'phone', 'social', 'wallet'], //  Optional, sort connection methods (index 0 will be placed at the top)
+    connectorsOrder: ['email', 'social', 'wallet'], //  Optional, sort connection methods (index 0 will be placed at the top)
     language: 'en-US', // Optional, also supported ja-JP, zh-CN, zh-TW, and ko-KR
     mode: 'dark', // Optional, changes theme between light, dark, or auto (which will change it based on system settings)
     theme: {
@@ -57,6 +58,11 @@ const config = createConfig({
         promptPaymentPasswordSettingWhenSign: 1,
       },
     }),
+    evmWalletConnectors({
+      metadata: { name: 'Blay', icon: '', description: '', url: '' }, // Optional, this is Metadata used by WalletConnect and Coinbase
+      multiInjectedProviderDiscovery: true, // Optional, enables the discovery of multiple injected providers
+      walletConnectProjectId: "15c3e98378673ef1aa8017bee196d3db"
+    }),
   ],
   plugins: [
     wallet({
@@ -74,9 +80,14 @@ const config = createConfig({
 
 // Export ConnectKitProvider to be used within your index or layout file (or use createConfig directly within those files).
 export const ParticleConnectkit = ({ children }: React.PropsWithChildren) => {
+  const [user, setUser] = useState(null);
+  const [wallet, setWallet] = useState(null);
+
   return (
     <ConnectKitProvider config={config}>
-      {children}
+      <AppContext.Provider value={{ user, setUser, wallet, setWallet }}>
+        {children}
+      </AppContext.Provider>
     </ConnectKitProvider>
   )
 };
