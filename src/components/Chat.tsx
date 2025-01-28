@@ -37,8 +37,7 @@ export default function Chat() {
   const [msg, setMsg] = useState("");
   const [resMsgs, setResMsg] = useState<any>([]);
   const { showChat, setShowChat } = useContext(AppContext);
-  const { address, isDisconnected, isConnecting, isReconnecting } = useAccount()
-  const { fetchUserWallet } = useUserService()
+  const { isDisconnected, isConnecting, isReconnecting } = useAccount()
   const handleToggle = () => {
     createUser({}).then((res) => {
       if (res?.result)
@@ -47,12 +46,6 @@ export default function Chat() {
   };
 
   const bottomRef = React.useRef<HTMLDivElement>(null);
-
-
-  useEffect(() => {
-    if (address)
-      fetchUserWallet({ address })
-  }, [address])
 
   useEffect(() => {
     if (bottomRef.current) {

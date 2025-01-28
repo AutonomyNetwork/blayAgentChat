@@ -16,6 +16,7 @@ export const useUserService = () => {
     api: "/user/wallet",
     method: "post",
   });
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { setUser, setShowChat, setIsReady } = useContext(AppContext)

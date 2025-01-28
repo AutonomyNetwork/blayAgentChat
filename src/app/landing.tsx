@@ -9,10 +9,19 @@ import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
 import { AppContext } from "./Context";
+import { useUserService } from "@/helpers/userService";
+import { useAccount } from "@particle-network/connectkit";
 
 export default function Landing() {
   const { isReady } = useContext(AppContext)
+  const { address } = useAccount()
+  const { fetchUserWallet } = useUserService()
   const navigate = useRouter();
+
+  useEffect(() => {
+    if (address)
+      fetchUserWallet({ address })
+  }, [address])
 
   useEffect(() => {
     if (isReady) {
