@@ -1,23 +1,25 @@
 "use client";
 import CustomButton from "@/components/CustomButton";
-import { useAccount } from "@particle-network/connectkit";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import blayLogo from "../assets/blayLogo.png";
 import landingImg from "../assets/landing-graphics.svg";
 import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
+import { AppContext } from "./Context";
 
 export default function Landing() {
-  const { isConnected } = useAccount();
+  const { isReady } = useContext(AppContext)
   const navigate = useRouter();
+
   useEffect(() => {
-    if (isConnected) {
+    if (isReady) {
       navigate.push("/chat");
     }
-  }, [isConnected]);
+  }, [isReady]);
+
   return (
     <div className="blay-main">
       <div className="header">

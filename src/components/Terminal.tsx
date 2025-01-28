@@ -6,12 +6,12 @@ const Terminal: React.FC = () => {
   const [showCursor, setShowCursor] = useState<boolean>(true); // Blinking cursor state
 
   const messages: string[] = [
-    "< Initializing Blay AI Core... >",
-    "< Synaptic algorithms: ONLINE >",
-    "< Chaos-to-Order protocols: ACTIVE >",
-    "< Cognitive wit level: MAXIMIZED >",
-    "< Charm factor: INFINITE >",
-    "< Connection to Bitlayer network: SECURE >",
+    "> Initializing Blay AI Core... ",
+    "> Synaptic algorithms: ONLINE ",
+    "> Chaos-to-Order protocols: ACTIVE ",
+    "> Cognitive wit level: MAXIMIZED ",
+    "> Charm factor: INFINITE ",
+    "> Connection to Bitlayer network: SECURE ",
     "Blay is ready to roll.",
     "Think smart. Work smart. Play smart.",
     "Welcome to Bitlayer, where Blay turns problems into possibilities.",
@@ -68,7 +68,7 @@ const Terminal: React.FC = () => {
       {output.map((line, idx) => (
         <div key={idx} style={{ marginBottom: 4, height: "1.2em" }} >
           {line}
-          {messages.length - 1 === idx && showCursor && <span style={{ display: "inline-block", height: "1em" }}><span style={{ display: "inline-block", width: "6px", backgroundColor: "lime", height: "1em" }}></span></span>}
+          <span style={{ display: "inline-block", height: "1em", visibility: messages.length - 1 === idx && showCursor ? "visible" : "hidden" }}><span style={{ display: "inline-block", width: "6px", backgroundColor: "lime", height: "1em" }}></span></span>
         </div>
       ))}
       <div style={{ display: "flex" }}>

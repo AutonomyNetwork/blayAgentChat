@@ -86,10 +86,11 @@ export const ParticleConnectkit = ({ children }: React.PropsWithChildren) => {
   const [user, setUser] = useState(null);
   const [wallet, setWallet] = useState(null);
   const [showChat, setShowChat] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   return (
     <ConnectKitProvider config={config}>
-      <AppContext.Provider value={{ user, setUser, wallet, setWallet, showChat, setShowChat }}>
+      <AppContext.Provider value={{ user, setUser, wallet, setWallet, showChat, setShowChat, isReady, setIsReady }}>
         {children}
       </AppContext.Provider>
     </ConnectKitProvider>

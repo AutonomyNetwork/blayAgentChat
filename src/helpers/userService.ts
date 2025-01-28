@@ -1,9 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useAxios from "./useAxios";
 import { AppContext } from "@/app/Context";
+import { useAccount } from "@particle-network/connectkit";
 
 export const useUserService = () => {
-  const { onCall: getUser } = useAxios({
+  const { isConnected } = useAccount()
+  const { onCall: getUser, data } = useAxios({
     api: "/user",
     method: "get",
     needToken: true,
@@ -16,7 +18,13 @@ export const useUserService = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { setUser, setShowChat } = useContext(AppContext)
+  const { setUser, setShowChat, setIsReady } = useContext(AppContext)
+
+  useEffect(() => {
+    if (isConnected && data?.result?.id) {
+      setIsReady(true)
+    }
+  }, [isConnected, data])
 
 
   const fetchUser = async () => {
