@@ -2,7 +2,6 @@
 import { AppContext } from "@/app/Context";
 import CustomButton from "@/components/CustomButton";
 import useAxios from "@/helpers/useAxios";
-import { useUserService } from "@/helpers/userService";
 import ShareIcon from "@/svg/ShareIcon";
 import { useAccount } from "@particle-network/connectkit";
 import Image from "next/image";
@@ -22,6 +21,7 @@ import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
 import Terminal from "./Terminal";
+
 export default function Chat() {
   const navigate = useRouter();
   const { onCall: createUser, loading } = useAxios({
