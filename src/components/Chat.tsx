@@ -14,6 +14,7 @@ import linkArrow from "../assets/ArrowSquareOut.svg";
 import blayLogo from "../assets/blayLogo.png";
 import chatIcon from "../assets/chatIcon.svg";
 import chatSend from "../assets/chatSend.svg";
+import chatLoading from "../assets/typing.gif";
 import loader from "../assets/loader.gif";
 import profilePic from "../assets/profile-pic.png";
 import smartWallet from "../assets/smart-wallet.svg";
@@ -60,6 +61,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (!isConnecting && !isReconnecting && isDisconnected) {
+      window.sessionStorage.clear()
       navigate.push("/")
     }
   }, [isDisconnected, isConnecting, isReconnecting])
@@ -258,6 +260,14 @@ export default function Chat() {
                         </>
                       ))}
                     </div>
+                    {msgLoading ? <div className="agent-chat">
+                      <div>
+                        <Image src={profilePic} alt="" />
+                      </div>
+                      <div className="agent-msg">
+                        <Image src={chatLoading} alt="" />
+                      </div>
+                    </div> : null}
                     <div ref={bottomRef} />
                   </div>
                   <form onSubmit={(e) => {
@@ -266,8 +276,9 @@ export default function Chat() {
                     sendMessage({ data: { message: msg } }).then((res) => {
                       setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }]);
                       setMsg("");
-                    }).catch(() => {
-
+                    }).catch((err: any) => {
+                      if (err)
+                        setMsg("");
                     })
                   }}>
                     <div className="chat-input">

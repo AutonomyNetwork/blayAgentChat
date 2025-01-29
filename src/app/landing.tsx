@@ -17,6 +17,10 @@ export default function Landing() {
   const { address } = useAccount()
   const { fetchUserWallet } = useUserService()
   const navigate = useRouter();
+  
+  console.log({
+    address
+  });
 
   useEffect(() => {
     if (address)
