@@ -34,6 +34,11 @@ export default function Chat() {
     method: "post",
     needToken: true,
   });
+  const { onCall: getMessages } = useAxios({
+    api: "/user/messages",
+    method: "get",
+    needToken: true,
+  });
   const [msg, setMsg] = useState("");
   const [resMsgs, setResMsg] = useState<any>([]);
   const { showChat, setShowChat } = useContext(AppContext);
@@ -58,6 +63,17 @@ export default function Chat() {
       navigate.push("/")
     }
   }, [isDisconnected, isConnecting, isReconnecting])
+
+  useEffect(() => {
+    if (showChat) {
+      getMessages({}).then(res => {
+        console.log(res?.result);
+
+        if (res?.result?.length)
+          setResMsg(res?.result)
+      })
+    }
+  }, [showChat])
   return (
     <div className="blay-main">
       <div className="header">
@@ -168,7 +184,9 @@ export default function Chat() {
                       <div className="chat-default">
                         <ul>
                           <li>
-                            <div>
+                            <div onClick={() => {
+                              setResMsg((prev: any) => [...prev, { type: "user", msg: "swap 0.00001 BTC to USDT with slipage of $2" }])
+                            }}>
                               <ShareIcon />
                               <div>Swap tokens</div>
                             </div>
@@ -196,7 +214,9 @@ export default function Chat() {
                             </div>
                           </li>
                           <li>
-                            <div>
+                            <div onClick={() => {
+                              setResMsg((prev: any) => [...prev, { type: "user", msg: "send 0.00001 ETH to" }])
+                            }}>
                               <ShareIcon />
                               <div>Send ETH to</div>
                             </div>
@@ -207,7 +227,21 @@ export default function Chat() {
                     <div className="chat-block">
                       {resMsgs.map((itm: any, i: number) => (
                         <>
-                          {itm.type === "api" ? (
+                          {itm.reply ? <>
+                            <div className="user-chat">
+                              {itm.message}
+                            </div>
+                            <div className="agent-chat">
+                              <div>
+                                <Image src={profilePic} alt="" />
+                              </div>
+                              <div className="agent-msg">
+                                <ReactMarkdown key={i}>
+                                  {itm.reply}
+                                </ReactMarkdown>
+                              </div>
+                            </div>
+                          </> : itm.type === "api" ? (
                             <div className="agent-chat">
                               <div>
                                 <Image src={profilePic} alt="" />
