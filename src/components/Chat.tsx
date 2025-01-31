@@ -164,13 +164,14 @@ export default function Chat() {
                           <li>
                             <div
                               onClick={() => {
-                                setResMsg((prev: any) => [
-                                  ...prev,
-                                  {
-                                    type: "user",
-                                    msg: "swap 0.00001 BTC to USDT with slipage of $2",
-                                  },
-                                ]);
+                                // setResMsg((prev: any) => [
+                                //   ...prev,
+                                //   {
+                                //     type: "user",
+                                //     msg: "swap 0.00001 BTC to USDT with slipage of $2",
+                                //   },
+                                // ]);
+                                setMsg("swap 0.00001 BTC to USDT with slipage of $2")
                               }}
                             >
                               <ShareIcon />
@@ -222,10 +223,11 @@ export default function Chat() {
                           <li>
                             <div
                               onClick={() => {
-                                setResMsg((prev: any) => [
-                                  ...prev,
-                                  { type: "user", msg: "send 0.00001 ETH to" },
-                                ]);
+                                // setResMsg((prev: any) => [
+                                //   ...prev,
+                                //   { type: "user", msg: "send 0.00001 ETH to" },
+                                // ]);
+                                setMsg("send 0.00001 ETH to")
                               }}
                             >
                               <ShareIcon />
