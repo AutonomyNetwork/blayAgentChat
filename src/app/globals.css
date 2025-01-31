@@ -370,7 +370,7 @@ a {
   border-radius: 12.5px;
   border: 1.25px solid #ffffff26;
   opacity: 1;
-  background: rgba(255, 255, 255, 0.04);
+  background: #101010;
   padding: 6px 12px;
   display: flex;
   align-items: center;
@@ -409,4 +409,8 @@ a {
   object-fit: cover;
   border-radius: 50%;
   background: #ccc;
+}
+.profile-avatar img {
+  width: 40px;
+  height: 40px;
 }

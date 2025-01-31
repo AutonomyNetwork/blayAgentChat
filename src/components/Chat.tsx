@@ -23,6 +23,7 @@ import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
 import Terminal from "./Terminal";
 import userAvatar from "../assets/user-avatar.webp";
+import LeftPanel from "./leftPanel";
 
 export default function Chat() {
   const navigate = useRouter();
@@ -86,34 +87,7 @@ export default function Chat() {
       </div>
       <div className="container flex">
         <div className="item1">
-          <div className="item-block">
-            <div className="left-panel">
-              <div className="left-panel-chat">
-                <Image src={chatIcon} alt="" />
-                CHAT
-              </div>
-              <div className="bottom-signin">
-                <CustomButton />
-                <ul>
-                  <li>
-                    <a href="">
-                      <Image src={telIcon} alt="telegram" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <Image src={xIcon} alt="twitter" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      <Image src={webIcon} alt="Website" />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <LeftPanel />
         </div>
         <div className="item2">
           <div className="item2-block">
