@@ -171,7 +171,7 @@ export default function Chat() {
                                 //     msg: "swap 0.00001 BTC to USDT with slipage of $2",
                                 //   },
                                 // ]);
-                                setMsg("swap 0.00001 BTC to USDT with slipage of $2")
+                                setMsg("swap 0.00001 BTC to USDT with slipage of 1")
                               }}
                             >
                               <ShareIcon />
