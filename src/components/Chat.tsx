@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 import arrowRight from "../assets/arrowRight.svg";
 import linkArrow from "../assets/ArrowSquareOut.svg";
 import blayLogo from "../assets/blayLogo.png";
@@ -22,6 +22,7 @@ import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
 import Terminal from "./Terminal";
+import userAvatar from "../assets/user-avatar.webp";
 
 export default function Chat() {
   const navigate = useRouter();
@@ -43,11 +44,10 @@ export default function Chat() {
   const [msg, setMsg] = useState("");
   const [resMsgs, setResMsg] = useState<any>([]);
   const { showChat, setShowChat } = useContext(AppContext);
-  const { isDisconnected, isConnecting, isReconnecting } = useAccount()
+  const { isDisconnected, isConnecting, isReconnecting } = useAccount();
   const handleToggle = () => {
     createUser({}).then((res) => {
-      if (res?.result)
-        setShowChat(true); // Toggle the state
+      if (res?.result) setShowChat(true); // Toggle the state
     });
   };
 
@@ -61,21 +61,20 @@ export default function Chat() {
 
   useEffect(() => {
     if (!isConnecting && !isReconnecting && isDisconnected) {
-      window.sessionStorage.clear()
-      navigate.push("/")
+      window.sessionStorage.clear();
+      navigate.push("/");
     }
-  }, [isDisconnected, isConnecting, isReconnecting])
+  }, [isDisconnected, isConnecting, isReconnecting]);
 
   useEffect(() => {
     if (showChat) {
-      getMessages({}).then(res => {
+      getMessages({}).then((res) => {
         console.log(res?.result);
 
-        if (res?.result?.length)
-          setResMsg(res?.result)
-      })
+        if (res?.result?.length) setResMsg(res?.result);
+      });
     }
-  }, [showChat])
+  }, [showChat]);
   return (
     <div className="blay-main">
       <div className="header">
@@ -135,14 +134,15 @@ export default function Chat() {
                           </div>
                         </div>
                       </div>
-                      {loading ? <div className="loader-block">
-                        <Image src={loader} alt="" />
-                      </div> :
+                      {loading ? (
+                        <div className="loader-block">
+                          <Image src={loader} alt="" />
+                        </div>
+                      ) : (
                         <div className="create-wallet">
-                          <button onClick={handleToggle}>
-                            Create wallet
-                          </button>
-                        </div>}
+                          <button onClick={handleToggle}>Create wallet</button>
+                        </div>
+                      )}
                     </div>
                     <div className="connect-smart">
                       <div className="connect-smart-item">
@@ -178,7 +178,10 @@ export default function Chat() {
                 </div>
               ) : (
                 <div className="chat-section">
-                  <div style={{ overflowY: "auto", height: "58vh" }}>
+                  <div
+                    style={{ overflowY: "auto", height: "58vh" }}
+                    className="chat-flow"
+                  >
                     <div>
                       <div>
                         <Terminal />
@@ -186,39 +189,72 @@ export default function Chat() {
                       <div className="chat-default">
                         <ul>
                           <li>
-                            <div onClick={() => {
-                              setResMsg((prev: any) => [...prev, { type: "user", msg: "swap 0.00001 BTC to USDT with slipage of $2" }])
-                            }}>
+                            <div
+                              onClick={() => {
+                                setResMsg((prev: any) => [
+                                  ...prev,
+                                  {
+                                    type: "user",
+                                    msg: "swap 0.00001 BTC to USDT with slipage of $2",
+                                  },
+                                ]);
+                              }}
+                            >
                               <ShareIcon />
                               <div>Swap tokens</div>
                             </div>
                           </li>
                           <li>
-                            <div onClick={() => {
-                              setResMsg((prev: any) => [...prev, { type: "user", msg: "BTC price" }])
-                              sendMessage({ data: { message: "BTC price" } }).then((res) => {
-                                setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
-                              })
-                            }}>
+                            <div
+                              onClick={() => {
+                                setResMsg((prev: any) => [
+                                  ...prev,
+                                  { type: "user", msg: "BTC price" },
+                                ]);
+                                sendMessage({
+                                  data: { message: "BTC price" },
+                                }).then((res) => {
+                                  setResMsg((prev: any) => [
+                                    ...prev,
+                                    { type: "api", msg: res.result },
+                                  ]);
+                                });
+                              }}
+                            >
                               <ShareIcon />
                               <div>BTC price</div>
                             </div>
                           </li>
                           <li>
-                            <div onClick={() => {
-                              setResMsg((prev: any) => [...prev, { type: "user", msg: "My account balance" }])
-                              sendMessage({ data: { message: "My account balance" } }).then((res) => {
-                                setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }])
-                              })
-                            }}>
+                            <div
+                              onClick={() => {
+                                setResMsg((prev: any) => [
+                                  ...prev,
+                                  { type: "user", msg: "My account balance" },
+                                ]);
+                                sendMessage({
+                                  data: { message: "My account balance" },
+                                }).then((res) => {
+                                  setResMsg((prev: any) => [
+                                    ...prev,
+                                    { type: "api", msg: res.result },
+                                  ]);
+                                });
+                              }}
+                            >
                               <ShareIcon />
                               <div>My account balance</div>
                             </div>
                           </li>
                           <li>
-                            <div onClick={() => {
-                              setResMsg((prev: any) => [...prev, { type: "user", msg: "send 0.00001 ETH to" }])
-                            }}>
+                            <div
+                              onClick={() => {
+                                setResMsg((prev: any) => [
+                                  ...prev,
+                                  { type: "user", msg: "send 0.00001 ETH to" },
+                                ]);
+                              }}
+                            >
                               <ShareIcon />
                               <div>Send ETH to</div>
                             </div>
@@ -229,62 +265,82 @@ export default function Chat() {
                     <div className="chat-block">
                       {resMsgs.map((itm: any, i: number) => (
                         <>
-                          {itm.reply ? <>
-                            <div className="user-chat">
-                              {itm.message}
-                            </div>
+                          {itm.reply ? (
+                            <>
+                              <div className="user-avatar">
+                                <div className="user-chat">{itm.message}</div>
+                                <div className="user-avatar-img">
+                                  <Image src={userAvatar} alt="user" />
+                                </div>
+                              </div>
+                              <div className="agent-chat">
+                                <div>
+                                  <Image src={profilePic} alt="" />
+                                </div>
+                                <div className="agent-msg">
+                                  <ReactMarkdown key={i}>
+                                    {itm.reply}
+                                  </ReactMarkdown>
+                                </div>
+                              </div>
+                            </>
+                          ) : itm.type === "api" ? (
                             <div className="agent-chat">
                               <div>
                                 <Image src={profilePic} alt="" />
                               </div>
                               <div className="agent-msg">
-                                <ReactMarkdown key={i}>
-                                  {itm.reply}
-                                </ReactMarkdown>
+                                <ReactMarkdown key={i}>{itm.msg}</ReactMarkdown>
                               </div>
                             </div>
-                          </> : itm.type === "api" ? (
-                            <div className="agent-chat">
-                              <div>
-                                <Image src={profilePic} alt="" />
-                              </div>
-                              <div className="agent-msg">
-                                <ReactMarkdown key={i}>
-                                  {itm.msg}
-                                </ReactMarkdown>
-                              </div>
-                            </div>
-                          ) : <div className="user-chat">
-                            {itm.msg}
-                          </div>}
+                          ) : (
+                            <div className="user-chat">{itm.msg}</div>
+                          )}
                         </>
                       ))}
                     </div>
-                    {msgLoading ? <div className="agent-chat">
-                      <div>
-                        <Image src={profilePic} alt="" />
+                    {msgLoading ? (
+                      <div className="agent-chat">
+                        <div>
+                          <Image src={profilePic} alt="" />
+                        </div>
+                        <div className="agent-msg">
+                          <Image src={chatLoading} alt="" />
+                        </div>
                       </div>
-                      <div className="agent-msg">
-                        <Image src={chatLoading} alt="" />
-                      </div>
-                    </div> : null}
+                    ) : null}
                     <div ref={bottomRef} />
                   </div>
-                  <form onSubmit={(e) => {
-                    e.preventDefault()
-                    setResMsg((prev: any) => [...prev, { type: "user", msg: msg }])
-                    sendMessage({ data: { message: msg } }).then((res) => {
-                      setResMsg((prev: any) => [...prev, { type: "api", msg: res.result }]);
-                      setMsg("");
-                    }).catch((err: any) => {
-                      if (err)
-                        setMsg("");
-                    })
-                  }}>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setResMsg((prev: any) => [
+                        ...prev,
+                        { type: "user", msg: msg },
+                      ]);
+                      sendMessage({ data: { message: msg } })
+                        .then((res) => {
+                          setResMsg((prev: any) => [
+                            ...prev,
+                            { type: "api", msg: res.result },
+                          ]);
+                          setMsg("");
+                        })
+                        .catch((err: any) => {
+                          if (err) setMsg("");
+                        });
+                    }}
+                  >
                     <div className="chat-input">
-                      <input disabled={msgLoading} type="text" value={msgLoading ? "Thinking..." : msg} placeholder="Message Blay" onChange={(e) => {
-                        setMsg(e.target.value)
-                      }} />
+                      <input
+                        disabled={msgLoading}
+                        type="text"
+                        value={msgLoading ? "Thinking..." : msg}
+                        placeholder="Message Blay"
+                        onChange={(e) => {
+                          setMsg(e.target.value);
+                        }}
+                      />
                       <button>
                         <Image src={chatSend} alt="Send" />
                       </button>
