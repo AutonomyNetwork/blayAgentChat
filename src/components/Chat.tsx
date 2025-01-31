@@ -44,7 +44,7 @@ export default function Chat() {
   const [msg, setMsg] = useState("");
   const [resMsgs, setResMsg] = useState<any>([]);
   const { showChat, setShowChat } = useContext(AppContext);
-  const { isDisconnected, isConnecting, isReconnecting } = useAccount();
+  const { isDisconnected, isConnecting } = useAccount();
 
   const handleToggle = () => {
     createUser({}).then((res) => {
@@ -61,11 +61,15 @@ export default function Chat() {
   }, [resMsgs]);
 
   useEffect(() => {
-    if (!isConnecting && !isReconnecting && isDisconnected) {
+    if (!isConnecting && isDisconnected) {
       window.sessionStorage.clear();
       navigate.push("/");
     }
-  }, [isDisconnected, isConnecting, isReconnecting]);
+  }, [isDisconnected, isConnecting]);
+
+  console.log({
+    isDisconnected, isConnecting
+  })
 
   useEffect(() => {
     if (showChat) {
