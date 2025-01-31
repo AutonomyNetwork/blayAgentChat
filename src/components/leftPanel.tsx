@@ -2,7 +2,7 @@
 import { AppContext } from "@/app/Context";
 import CustomButton from "@/components/CustomButton";
 import useAxios from "@/helpers/useAxios";
-import { useAccount } from "@particle-network/connectkit";
+// import { useAccount } from "@particle-network/connectkit";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
@@ -13,30 +13,16 @@ import xIcon from "../assets/x.svg";
 
 export default function LeftPanel() {
   const navigate = useRouter();
-  const { onCall: createUser, loading } = useAxios({
-    api: "/user/create",
-    method: "post",
-    needToken: true,
-  });
-  const { onCall: sendMessage, loading: msgLoading } = useAxios({
-    api: "/user/message",
-    method: "post",
-    needToken: true,
-  });
+
   const { onCall: getMessages } = useAxios({
     api: "/user/messages",
     method: "get",
     needToken: true,
   });
-  const [msg, setMsg] = useState("");
   const [resMsgs, setResMsg] = useState<any>([]);
-  const { showChat, setShowChat } = useContext(AppContext);
-  const { isDisconnected, isConnecting, isReconnecting } = useAccount();
-  const handleToggle = () => {
-    createUser({}).then((res) => {
-      if (res?.result) setShowChat(true); // Toggle the state
-    });
-  };
+  const { showChat } = useContext(AppContext);
+  // const { isDisconnected, isConnecting, isReconnecting } = useAccount();
+ 
 
   const bottomRef = React.useRef<HTMLDivElement>(null);
 
@@ -46,12 +32,12 @@ export default function LeftPanel() {
     }
   }, [resMsgs]);
 
-  useEffect(() => {
-    if (!isConnecting && !isReconnecting && isDisconnected) {
-      window.sessionStorage.clear();
-      navigate.push("/");
-    }
-  }, [isDisconnected, isConnecting, isReconnecting]);
+  // useEffect(() => {
+  //   if (!isConnecting && !isReconnecting && isDisconnected) {
+  //     window.sessionStorage.clear();
+  //     navigate.push("/");
+  //   }
+  // }, [isDisconnected, isConnecting, isReconnecting]);
 
   useEffect(() => {
     if (showChat) {
