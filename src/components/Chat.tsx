@@ -225,13 +225,13 @@ export default function Chat() {
                               onClick={() => {
                                 // setResMsg((prev: any) => [
                                 //   ...prev,
-                                //   { type: "user", msg: "send 0.00001 ETH to" },
+                                //   { type: "user", msg: "send 0.00001 BTC to" },
                                 // ]);
-                                setMsg("send 0.00001 ETH to")
+                                setMsg("send 0.00001 BTC to")
                               }}
                             >
                               <ShareIcon />
-                              <div>Send ETH to</div>
+                              <div>Send BTC to</div>
                             </div>
                           </li>
                         </ul>
