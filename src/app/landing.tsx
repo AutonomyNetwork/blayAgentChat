@@ -14,24 +14,20 @@ import { useAccount } from "@particle-network/connectkit";
 
 export default function Landing() {
   const { isReady } = useContext(AppContext)
-  const { address } = useAccount()
+  const { address, isConnected } = useAccount()
   const { fetchUserWallet } = useUserService()
   const navigate = useRouter();
-  
-  console.log({
-    address
-  });
 
   useEffect(() => {
-    if (address)
+    if (address && isConnected)
       fetchUserWallet({ address })
-  }, [address])
+  }, [address, isConnected])
 
   useEffect(() => {
-    if (isReady) {
+    if (isReady && address) {
       navigate.push("/chat");
     }
-  }, [isReady]);
+  }, [isReady, address]);
 
   return (
     <div className="blay-main">

@@ -45,6 +45,7 @@ export default function Chat() {
   const [resMsgs, setResMsg] = useState<any>([]);
   const { showChat, setShowChat } = useContext(AppContext);
   const { isDisconnected, isConnecting, isReconnecting } = useAccount();
+
   const handleToggle = () => {
     createUser({}).then((res) => {
       if (res?.result) setShowChat(true); // Toggle the state
@@ -69,12 +70,11 @@ export default function Chat() {
   useEffect(() => {
     if (showChat) {
       getMessages({}).then((res) => {
-        console.log(res?.result);
-
         if (res?.result?.length) setResMsg(res?.result);
       });
     }
   }, [showChat]);
+
   return (
     <div className="blay-main">
       <div className="header">
@@ -263,8 +263,8 @@ export default function Chat() {
                       </div>
                     </div>
                     <div className="chat-block">
-                      {resMsgs.map((itm: any, i: number) => (
-                        <>
+                      {resMsgs?.map((itm: any, i: number) => (
+                        <div key={i}>
                           {itm.reply ? (
                             <>
                               <div className="user-avatar">
@@ -296,7 +296,7 @@ export default function Chat() {
                           ) : (
                             <div className="user-chat">{itm.msg}</div>
                           )}
-                        </>
+                        </div>
                       ))}
                     </div>
                     {msgLoading ? (
