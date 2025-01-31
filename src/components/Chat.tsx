@@ -1,6 +1,5 @@
 "use client";
 import { AppContext } from "@/app/Context";
-import CustomButton from "@/components/CustomButton";
 import useAxios from "@/helpers/useAxios";
 import ShareIcon from "@/svg/ShareIcon";
 import { useAccount } from "@particle-network/connectkit";
@@ -12,18 +11,14 @@ import ReactMarkdown from "react-markdown";
 import arrowRight from "../assets/arrowRight.svg";
 import linkArrow from "../assets/ArrowSquareOut.svg";
 import blayLogo from "../assets/blayLogo.png";
-import chatIcon from "../assets/chatIcon.svg";
 import chatSend from "../assets/chatSend.svg";
-import chatLoading from "../assets/typing.gif";
 import loader from "../assets/loader.gif";
 import profilePic from "../assets/profile-pic.png";
 import smartWallet from "../assets/smart-wallet.svg";
-import telIcon from "../assets/telegram.svg";
-import webIcon from "../assets/web.svg";
-import xIcon from "../assets/x.svg";
-import Terminal from "./Terminal";
+import chatLoading from "../assets/typing.gif";
 import userAvatar from "../assets/user-avatar.webp";
 import LeftPanel from "./leftPanel";
+import Terminal from "./Terminal";
 
 export default function Chat() {
   const navigate = useRouter();
