@@ -38,7 +38,7 @@ export const useUserService = () => {
         setShowChat(true)
       }
       if (!userData) throw new Error("User not found.");
-      setUser(userData);
+      setUser(userData?.result);
     } catch (err: any) {
       setError(err.message);
     } finally {
