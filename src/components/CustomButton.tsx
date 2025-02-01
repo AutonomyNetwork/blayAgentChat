@@ -20,13 +20,6 @@ const CustomButton = () => {
       {formattedAddress(address)}
       {chains?.find(ele => ele.id === chainId)?.name}
     </div> :
-      // <button onClick={async () => {
-      //   await connect({
-      //     connector: config.connectors?.[0]
-      //   });
-      // }}>
-      //   Sign In
-      // </button>
       <ConnectButton label='Sign In' />
   );
 };
