@@ -1,45 +1,19 @@
 "use client";
+import { formattedAddress } from "@/helpers/utils";
 import CopyIcon from "@/svg/CopyIcon";
+import { useAccount, useDisconnect } from "@particle-network/connectkit";
 import Image from "next/image";
+import { useContext } from "react";
 import arrowRight from "../../assets/arrowRight.svg";
 import blayLogo from "../../assets/blayLogo.png";
 import userAvatar from "../../assets/user-avatar.webp";
 import LeftPanel from "../../components/leftPanel";
-import { useAccount, useDisconnect } from "@particle-network/connectkit";
-import { formattedAddress } from "@/helpers/utils";
-import { useContext, useEffect, useRef } from "react";
 import { AppContext } from "../Context";
-import { useRouter } from "next/navigation";
-import { useUserService } from "@/helpers/userService";
 
 export default function Profile() {
-  const { address, isDisconnected, isConnected } = useAccount()
+  const { address } = useAccount()
   const { disconnect } = useDisconnect()
   const { user } = useContext(AppContext)
-  const { fetchUserWallet } = useUserService()
-  const navigate = useRouter();
-  const timeoutRef = useRef<any>();
-
-
-  useEffect(() => {
-    if (isDisconnected) {
-      timeoutRef.current = setTimeout(() => {
-        window.sessionStorage.clear();
-        navigate.push("/");
-      }, 100);
-    }
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-    }
-  }, [isDisconnected, timeoutRef]);
-
-  useEffect(() => {
-    if (isConnected && address) {
-      fetchUserWallet({ address })
-    }
-  }, [isConnected && address]);
 
   return (
     <div className="blay-main">

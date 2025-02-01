@@ -40,7 +40,6 @@ export default function Chat() {
   const [msg, setMsg] = useState("");
   const [resMsgs, setResMsg] = useState<any>([]);
   const { showChat, setShowChat } = useContext(AppContext);
-  const { isDisconnected, isConnecting } = useAccount();
 
   const handleToggle = () => {
     createUser({}).then((res) => {
@@ -56,13 +55,6 @@ export default function Chat() {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [resMsgs]);
-
-  useEffect(() => {
-    if (!isConnecting && isDisconnected) {
-      window.sessionStorage.clear();
-      navigate.push("/");
-    }
-  }, [isDisconnected, isConnecting]);
 
   useEffect(() => {
     if (showChat) {

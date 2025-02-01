@@ -10,6 +10,7 @@ import {
 import { evmWalletConnectors } from '@particle-network/connectkit/evm';
 // import { wallet, EntryPosition } from '@particle-network/connectkit/wallet';
 import React, { useState } from 'react';
+import CheckWalletConnected from './CheckWalletConnected';
 
 //Retrived from https://dashboard.particle.network
 const projectId = "27ae829b-29d2-406e-a9e6-fd58bc053eae" as string;
@@ -87,10 +88,17 @@ export const ParticleConnectkit = ({ children }: React.PropsWithChildren) => {
   const [wallet, setWallet] = useState(null);
   const [showChat, setShowChat] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [navLoading, setNavLoading] = useState(false);
 
   return (
     <ConnectKitProvider config={config}>
-      <AppContext.Provider value={{ user, setUser, wallet, setWallet, showChat, setShowChat, isReady, setIsReady }}>
+      <AppContext.Provider value={{ user, setUser, wallet, setWallet, showChat, setShowChat, isReady, setIsReady, navLoading, setNavLoading }}>
+        {(navLoading) && <div className="loader">
+          <span className="dot"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
+        </div>}
+        <CheckWalletConnected />
         {children}
       </AppContext.Provider>
     </ConnectKitProvider>

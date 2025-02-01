@@ -1,5 +1,6 @@
 "use client";
 import CustomButton from "@/components/CustomButton";
+import { useAccount } from "@particle-network/connectkit";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
@@ -9,19 +10,11 @@ import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
 import { AppContext } from "./Context";
-import { useUserService } from "@/helpers/userService";
-import { useAccount } from "@particle-network/connectkit";
 
 export default function Landing() {
   const { isReady } = useContext(AppContext)
-  const { address, isConnected } = useAccount()
-  const { fetchUserWallet } = useUserService()
+  const { address } = useAccount()
   const navigate = useRouter();
- 
-  useEffect(() => {
-    if (address && isConnected)
-      fetchUserWallet({ address })
-  }, [address, isConnected])
 
   useEffect(() => {
     if (isReady && address) {
