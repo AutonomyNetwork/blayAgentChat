@@ -20,7 +20,7 @@ if (!projectId || !clientKey || !appId) {
   throw new Error('Please configure the Particle project in .env first!');
 }
 
-const config = createConfig({
+export const config = createConfig({
   projectId,
   clientKey,
   appId,

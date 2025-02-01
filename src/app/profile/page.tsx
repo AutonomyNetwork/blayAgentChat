@@ -5,8 +5,15 @@ import arrowRight from "../../assets/arrowRight.svg";
 import blayLogo from "../../assets/blayLogo.png";
 import userAvatar from "../../assets/user-avatar.webp";
 import LeftPanel from "../../components/leftPanel";
+import { useAccount, useDisconnect } from "@particle-network/connectkit";
+import { formattedAddress } from "@/helpers/utils";
+import { useContext } from "react";
+import { AppContext } from "../Context";
 
 export default function Profile() {
+  const { address } = useAccount()
+  const { disconnect } = useDisconnect()
+  const { user } = useContext(AppContext)
   return (
     <div className="blay-main">
       <div className="header">
@@ -27,10 +34,12 @@ export default function Profile() {
                 <div>
                   <div className="profile-avatar">
                     <Image src={userAvatar} alt="" />
-                    <div>mw3txb...324a</div>
+                    <div>{formattedAddress(user?.wallet_address)}</div>
                   </div>
                   <div>
-                    <button>Sign Out</button>
+                    <button onClick={() => {
+                      disconnect()
+                    }}>Sign Out</button>
                   </div>
                 </div>
                 <div className="account-block">
@@ -41,7 +50,7 @@ export default function Profile() {
                         <div>P</div>
                         <div>
                           <div>Primary Wallet</div>
-                          <div>8214yhbkqbdk12847gkhjbk</div>
+                          <div>{formattedAddress(address)}</div>
                         </div>
                         <div>
                           <CopyIcon />

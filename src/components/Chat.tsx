@@ -44,7 +44,8 @@ export default function Chat() {
 
   const handleToggle = () => {
     createUser({}).then((res) => {
-      if (res?.result) setShowChat(true); // Toggle the state
+      if (res?.result?.wallet_address) setShowChat(true);
+      else setShowChat(false);// Toggle the state
     });
   };
 
@@ -62,10 +63,6 @@ export default function Chat() {
       navigate.push("/");
     }
   }, [isDisconnected, isConnecting]);
-
-  console.log({
-    isDisconnected, isConnecting
-  })
 
   useEffect(() => {
     if (showChat) {

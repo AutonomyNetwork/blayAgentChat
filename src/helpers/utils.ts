@@ -1,8 +1,11 @@
 export const onLogout = () => {
-  window.sessionStorage.removeItem("email");
-  window.sessionStorage.removeItem("userId");
-  window.sessionStorage.removeItem("name");
-  window.sessionStorage.removeItem("picture");
-  window.sessionStorage.removeItem("token");
-  window.sessionStorage.removeItem("refresh_token");
+  window.sessionStorage.clear()
+}
+
+export const formattedAddress = (ele?: string) => {
+  if (ele)
+    return `${ele?.substr(0, 5)}...${ele?.substr(35)}`
+}
+export const formattedHash = (ele: string) => {
+  return `${ele?.substr(0, 10)}...${ele?.substr(55)}`
 }
