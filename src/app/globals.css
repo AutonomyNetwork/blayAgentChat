@@ -59,9 +59,9 @@ a {
   }
 }
 .header {
-  text-align: center;
-  margin: auto;
-  padding: 0px 20px 20px 20px;
+  text-align: left;
+  margin: 0;
+  padding: 0px 20px 20px 0px;
 }
 .header img {
   width: 120px;
@@ -106,7 +106,7 @@ a {
   align-items: stretch;
   justify-content: center;
   gap: 12px;
-  height: calc(100vh - 110px);
+  height: calc(100vh - 40px);
 }
 .item1 {
   width: 24%;
@@ -194,7 +194,7 @@ a {
   align-items: center;
   gap: 6px;
   position: fixed;
-  width: 68%;
+  width: 68.5%;
   bottom: 40px;
 }
 .chat-input input {
@@ -231,11 +231,19 @@ a {
   background: #2020243d;
   padding: 20px;
   border-radius: 10px;
-  width: 60%;
+  width: 72%;
+}
+.agent-chat img {
+  width: 32px;
+  height: 32px;
 }
 .agent-msg {
   margin-left: 8px;
   font-size: 14px;
+}
+.agent-msg p {
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
 .agent-msg ol {
   padding-left: 20px;
@@ -264,6 +272,7 @@ a {
   text-align: right;
   width: 60%;
   margin-left: auto;
+  font-size: 14px;
 }
 .connect-smart {
   display: flex;
@@ -399,6 +408,7 @@ a {
 .user-avatar {
   display: flex;
   align-items: center;
+  margin: 10px 0;
 }
 .user-avatar-img {
   margin-left: 8px;

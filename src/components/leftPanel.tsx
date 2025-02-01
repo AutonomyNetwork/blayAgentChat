@@ -7,15 +7,20 @@ import chatIcon from "../assets/chatIcon.svg";
 import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
+import blayLogo from "../assets/blayLogo.png";
 
 export default function LeftPanel() {
-
   return (
     <div className="item-block">
       <div className="left-panel">
-        <div className="left-panel-chat">
-          <Image src={chatIcon} alt="" />
-          CHAT
+        <div>
+          <div className="header">
+            <Image src={blayLogo} alt="Blay Logo" />
+          </div>
+          <div className="left-panel-chat">
+            <Image src={chatIcon} alt="" />
+            CHAT
+          </div>
         </div>
         <div className="bottom-signin">
           <CustomButton />

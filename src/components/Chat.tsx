@@ -64,8 +64,9 @@ export default function Chat() {
   }, [isDisconnected, isConnecting]);
 
   console.log({
-    isDisconnected, isConnecting
-  })
+    isDisconnected,
+    isConnecting,
+  });
 
   useEffect(() => {
     if (showChat) {
@@ -77,9 +78,6 @@ export default function Chat() {
 
   return (
     <div className="blay-main">
-      <div className="header">
-        <Image src={blayLogo} alt="Blay Logo" />
-      </div>
       <div className="container flex">
         <div className="item1">
           <LeftPanel />
@@ -152,7 +150,7 @@ export default function Chat() {
               ) : (
                 <div className="chat-section">
                   <div
-                    style={{ overflowY: "auto", height: "58vh" }}
+                    style={{ overflowY: "auto", height: "calc(100vh - 230px)" }}
                     className="chat-flow"
                   >
                     <div>
@@ -171,7 +169,9 @@ export default function Chat() {
                                 //     msg: "swap 0.00001 BTC to USDT with slipage of $2",
                                 //   },
                                 // ]);
-                                setMsg("swap 0.00001 BTC to USDT with slipage of 1")
+                                setMsg(
+                                  "swap 0.00001 BTC to USDT with slipage of 1"
+                                );
                               }}
                             >
                               <ShareIcon />
@@ -227,7 +227,7 @@ export default function Chat() {
                                 //   ...prev,
                                 //   { type: "user", msg: "send 0.00001 BTC to" },
                                 // ]);
-                                setMsg("send 0.00001 BTC to")
+                                setMsg("send 0.00001 BTC to");
                               }}
                             >
                               <ShareIcon />
@@ -244,9 +244,9 @@ export default function Chat() {
                             <>
                               <div className="user-avatar">
                                 <div className="user-chat">{itm.message}</div>
-                                <div className="user-avatar-img">
+                                {/* <div className="user-avatar-img">
                                   <Image src={userAvatar} alt="user" />
-                                </div>
+                                </div> */}
                               </div>
                               <div className="agent-chat">
                                 <div>
