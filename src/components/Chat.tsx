@@ -4,7 +4,6 @@ import useAxios from "@/helpers/useAxios";
 import ShareIcon from "@/svg/ShareIcon";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import arrowRight from "../assets/arrowRight.svg";
