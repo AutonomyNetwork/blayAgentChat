@@ -1,7 +1,7 @@
 import { useUserService } from '@/helpers/userService';
 import { useAccount } from '@particle-network/connectkit';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const CheckWalletConnected = () => {
   const { fetchUserWallet } = useUserService()
