@@ -40,11 +40,11 @@ export default function Chat() {
   const [msg, setMsg] = useState("");
   const [resMsgs, setResMsg] = useState<any>([]);
   const { showChat, setShowChat } = useContext(AppContext);
-  const { isDisconnected, isConnecting } = useAccount();
 
   const handleToggle = () => {
     createUser({}).then((res) => {
-      if (res?.result) setShowChat(true); // Toggle the state
+      if (res?.result?.wallet_address) setShowChat(true);
+      else setShowChat(false);// Toggle the state
     });
   };
 
@@ -55,18 +55,6 @@ export default function Chat() {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [resMsgs]);
-
-  useEffect(() => {
-    if (!isConnecting && isDisconnected) {
-      window.sessionStorage.clear();
-      navigate.push("/");
-    }
-  }, [isDisconnected, isConnecting]);
-
-  console.log({
-    isDisconnected,
-    isConnecting,
-  });
 
   useEffect(() => {
     if (showChat) {

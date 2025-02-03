@@ -16,10 +16,10 @@ export const useUserService = () => {
     api: "/user/wallet",
     method: "post",
   });
-  
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { setUser, setShowChat, setIsReady } = useContext(AppContext)
+  const { setUser, setShowChat, setIsReady, setNavLoading } = useContext(AppContext)
 
   useEffect(() => {
     if (isConnected && data?.result?.id) {
@@ -31,23 +31,24 @@ export const useUserService = () => {
   const fetchUser = async () => {
     setLoading(true);
     setError(null);
-
     try {
       const userData = await getUser({});
       if (userData?.result?.wallet_address) {
         setShowChat(true)
       }
       if (!userData) throw new Error("User not found.");
-      setUser(userData);
+      setUser(userData?.result);
+      setNavLoading(false)
     } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
+      setNavLoading(false)
     }
   };
 
   const fetchUserWallet = async ({ address }: any) => {
-
+    setNavLoading(true)
     setLoading(true);
     setError(null);
 
@@ -56,11 +57,14 @@ export const useUserService = () => {
       if (resp?.result) {
         window.sessionStorage.setItem("token", resp?.result);
         fetchUser();
+      } else {
+        setNavLoading(false)
       }
     } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
+      setNavLoading(false)
     }
   };
 

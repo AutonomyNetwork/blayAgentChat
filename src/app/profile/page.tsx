@@ -1,17 +1,24 @@
 "use client";
+import { formattedAddress } from "@/helpers/utils";
 import CopyIcon from "@/svg/CopyIcon";
+import { useAccount, useDisconnect } from "@particle-network/connectkit";
 import Image from "next/image";
+import { useContext } from "react";
 import arrowRight from "../../assets/arrowRight.svg";
 import blayLogo from "../../assets/blayLogo.png";
 import userAvatar from "../../assets/user-avatar.webp";
 import LeftPanel from "../../components/leftPanel";
+import { AppContext } from "../Context";
+import lineDot from "../../assets/line.svg";
 
 export default function Profile() {
+  const { address } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { user } = useContext(AppContext);
+
   return (
     <div className="blay-main">
-      <div className="header">
-        <Image src={blayLogo} alt="Blay Logo" />
-      </div>
+ 
       <div className="container flex">
         <div className="item1">
           <LeftPanel />
@@ -24,27 +31,50 @@ export default function Profile() {
             </div>
             <div className="chat-interface">
               <div className="profile-block">
-                <div>
+                <div className="profile-signout">
                   <div className="profile-avatar">
                     <Image src={userAvatar} alt="" />
-                    <div>mw3txb...324a</div>
+                    <div>{formattedAddress(user?.wallet_address)}</div>
                   </div>
-                  <div>
-                    <button>Sign Out</button>
+                  <div className="signout-btn">
+                    <button
+                      onClick={() => {
+                        disconnect();
+                      }}
+                    >
+                      Sign Out
+                    </button>
                   </div>
                 </div>
                 <div className="account-block">
-                  <div>Account Details</div>
+                  <div className="account-heading">Account Details</div>
                   <div className="accound-div">
                     <div className="account-item">
-                      <div>
-                        <div>P</div>
-                        <div>
-                          <div>Primary Wallet</div>
-                          <div>8214yhbkqbdk12847gkhjbk</div>
+                      <div className="accoount-item1">
+                        <div className="account-flex flex1">
+                          <div className="acc-item">
+                            <div className="p-block">B</div>
+                            <div className="p-wallet">
+                              <div>Primary Wallet</div>
+                              <div>{formattedAddress(address)}</div>
+                            </div>
+                          </div>
+                          <div className="copy-wallet">
+                            <CopyIcon />
+                          </div>
                         </div>
-                        <div>
-                          <CopyIcon />
+                        <div className="account-flex flex2">
+                          <Image src={lineDot} alt="" className="line" />
+                          <div className="acc-item">
+                            <div className="p-block">P</div>
+                            <div className="p-wallet">
+                              <div>My Blay Wallet</div>
+                              <div>{formattedAddress(address)}</div>
+                            </div>
+                          </div>
+                          <div className="copy-wallet">
+                            <CopyIcon />
+                          </div>
                         </div>
                       </div>
                     </div>
