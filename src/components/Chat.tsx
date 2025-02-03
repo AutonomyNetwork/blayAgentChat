@@ -39,7 +39,11 @@ export default function Chat() {
   });
   const [msg, setMsg] = useState("");
   const [resMsgs, setResMsg] = useState<any>([]);
-  const { showChat, setShowChat } = useContext(AppContext);
+  const { showChat, setShowChat, setNavLoading } = useContext(AppContext);
+
+  useEffect(() => {
+    setNavLoading(false)
+  }, [])
 
   const handleToggle = () => {
     createUser({}).then((res) => {
