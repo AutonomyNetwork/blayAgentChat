@@ -8,12 +8,13 @@ import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
 import blayLogo from "../assets/blayLogo.png";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useContext } from "react";
 import { AppContext } from "@/app/Context";
 
 export default function LeftPanel() {
   const navigate = useRouter();
+  const pathname = usePathname()
   const { setNavLoading } = useContext(AppContext)
   return (
     <div className="item-block">
@@ -23,8 +24,10 @@ export default function LeftPanel() {
             <Image src={blayLogo} alt="Blay Logo" />
           </div>
           <div className="left-panel-chat" onClick={() => {
-            setNavLoading(true)
-            navigate.push("/chat")
+            if (pathname !== "/chat") {
+              setNavLoading(true)
+              navigate.push("/chat")
+            }
           }}>
             <Image src={chatIcon} alt="" />
             CHAT

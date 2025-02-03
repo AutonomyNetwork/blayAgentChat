@@ -2,7 +2,6 @@
 import { AppContext } from "@/app/Context";
 import useAxios from "@/helpers/useAxios";
 import ShareIcon from "@/svg/ShareIcon";
-import { useAccount } from "@particle-network/connectkit";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,18 +9,15 @@ import React, { useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import arrowRight from "../assets/arrowRight.svg";
 import linkArrow from "../assets/ArrowSquareOut.svg";
-import blayLogo from "../assets/blayLogo.png";
 import chatSend from "../assets/chatSend.svg";
 import loader from "../assets/loader.gif";
 import profilePic from "../assets/profile-pic.png";
 import smartWallet from "../assets/smart-wallet.svg";
 import chatLoading from "../assets/typing.gif";
-import userAvatar from "../assets/user-avatar.webp";
 import LeftPanel from "./leftPanel";
 import Terminal from "./Terminal";
 
 export default function Chat() {
-  const navigate = useRouter();
   const { onCall: createUser, loading } = useAxios({
     api: "/user/create",
     method: "post",
