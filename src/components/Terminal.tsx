@@ -15,14 +15,14 @@ const Terminal: React.FC = () => {
     "Blay is ready to roll.",
     "Think smart. Work smart. Play smart.",
     "Welcome to Bitlayer, where Blay turns problems into possibilities.",
-    "Ready for your clever solutions?"
+    "Ready for your clever solutions?",
   ];
 
   useEffect(() => {
     const typeMessages = async () => {
       for (let i = 0; i < messages.length; i++) {
         const str: string = await typeLine(messages[i]);
-        setOutput((prev) => prev.includes(str) ? prev : [...prev, str]); // Add completed line to output
+        setOutput((prev) => (prev.includes(str) ? prev : [...prev, str])); // Add completed line to output
         setCurrentLine("");
       }
     };
@@ -56,24 +56,51 @@ const Terminal: React.FC = () => {
   return (
     <div
       style={{
-        backgroundColor: "black",
-        color: "lime",
+        color: "#e36f19",
         padding: "20px",
-        fontFamily: "monospace",
+        fontSize: "14px",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
       }}
     >
       {output.map((line, idx) => (
-        <div key={idx} style={{ marginBottom: 4, height: "1.2em" }} >
+        <div key={idx} style={{ marginBottom: 4, height: "1.2em" }}>
           {line}
-          <span style={{ display: "inline-block", height: "1em", visibility: messages.length - 1 === idx && showCursor ? "visible" : "hidden" }}><span style={{ display: "inline-block", width: "6px", backgroundColor: "lime", height: "1em" }}></span></span>
+          <span
+            style={{
+              display: "inline-block",
+              height: "1em",
+              visibility:
+                messages.length - 1 === idx && showCursor
+                  ? "visible"
+                  : "hidden",
+            }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                width: "6px",
+                backgroundColor: "#e36f19",
+                height: "1em",
+              }}
+            ></span>
+          </span>
         </div>
       ))}
       <div style={{ display: "flex" }}>
         {currentLine}
-        {currentLine && showCursor && <span style={{ display: "inline-block", width: "6px", backgroundColor: "lime", height: "1em" }}></span>} {/* Simulate cursor */}
+        {currentLine && showCursor && (
+          <span
+            style={{
+              display: "inline-block",
+              width: "6px",
+              backgroundColor: "lime",
+              height: "1em",
+            }}
+          ></span>
+        )}{" "}
+        {/* Simulate cursor */}
       </div>
     </div>
   );
