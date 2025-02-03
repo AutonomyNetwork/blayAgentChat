@@ -586,6 +586,10 @@ a {
 .p-wallet div:last-child {
   font-weight: 700;
 }
+.copy-wallet {
+  position: relative;
+  cursor: pointer;
+}
 .copy-wallet svg {
   opacity: 0.35;
 }
@@ -603,4 +607,17 @@ a {
   position: absolute;
   left: -10%;
   top: -15px;
+}
+
+.copy-text {
+  position: absolute;
+  width: 60px;
+  right: -20px;
+  top: -29px;
+  background: #2c2f34;
+  padding: 4px 6px;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
 }
