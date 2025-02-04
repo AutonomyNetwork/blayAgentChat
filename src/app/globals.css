@@ -145,6 +145,18 @@ a {
   width: 18px;
   margin-right: 6px;
 }
+.bridge {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding-left: 10px;
+  text-transform: uppercase;
+}
+.bridge img {
+  margin-right: 14px;
+  width: 18px;
+  height: 18px;
+}
 .bottom-signin .hUYyCx {
   background: linear-gradient(
     180deg,
@@ -166,13 +178,12 @@ a {
 .bottom-signin ul {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 6px;
   list-style-type: none;
   flex-wrap: wrap;
-  justify-content: space-around;
 }
 .bottom-signin ul li img {
-  width: 60px;
+  width: 48px;
 }
 .item2-block {
   border-radius: 0px 12px 12px 0px;
@@ -327,12 +338,16 @@ a {
   border: 2px solid rgba(255, 255, 255, 0.02);
   background: url("/landing-bg.svg");
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
-  height: calc(100vh - 110px);
+  height: calc(100vh - 40px);
   background-position: center;
 }
+.landing-container .header{
+  text-align: center;
+  margin-top: 26px;
+}
 .landing-main {
-  height: 100%;
-  width: 40%;
+  height: 86%;
+  width: 48%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -390,7 +405,7 @@ a {
   display: flex;
   align-items: center;
   cursor: pointer;
-  transition: 0.5s all ease;
+
 }
 .chat-default ul li svg {
   width: 14px;
@@ -484,8 +499,12 @@ a {
 .profile-address {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  cursor: pointer;
 }
+/* .profile-address:hover .profile-wallet{
+  text-decoration: underline;
+} */
 .profile-address img {
   margin-right: 10px;
   width: 40px;
@@ -590,9 +609,17 @@ a {
 .copy-wallet {
   position: relative;
   cursor: pointer;
+
+  padding: 6px 8px 4px;
+  border-radius: 7px;
+}
+.copy-wallet:hover {
+  background: #ffffff1a;
 }
 .copy-wallet svg {
   opacity: 0.35;
+  width: 14px;
+  height: 14px;
 }
 .flex1 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);

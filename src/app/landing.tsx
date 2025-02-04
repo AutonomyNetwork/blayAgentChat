@@ -12,8 +12,8 @@ import xIcon from "../assets/x.svg";
 import { AppContext } from "./Context";
 
 export default function Landing() {
-  const { isReady } = useContext(AppContext)
-  const { address } = useAccount()
+  const { isReady } = useContext(AppContext);
+  const { address } = useAccount();
   const navigate = useRouter();
 
   useEffect(() => {
@@ -24,10 +24,10 @@ export default function Landing() {
 
   return (
     <div className="blay-main">
-      <div className="header">
-        <Image src={blayLogo} alt="Blay Logo" />
-      </div>
       <div className="landing-container">
+        <div className="header">
+          <Image src={blayLogo} alt="Blay Logo" />
+        </div>
         <div className="landing-main">
           <div className="landing-block">
             <Image src={landingImg} alt="" className="landing-img" />
