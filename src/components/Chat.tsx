@@ -60,7 +60,7 @@ export default function Chat() {
   useEffect(() => {
     if (showChat) {
       getMessages({}).then((res) => {
-        if (res?.result?.length) setResMsg(res?.result);
+        if (res?.result?.length) { setResMsg(res?.result) } else setResMsg([]);
       });
     }
   }, [showChat]);
