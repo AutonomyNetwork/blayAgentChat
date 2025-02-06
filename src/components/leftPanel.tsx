@@ -36,7 +36,9 @@ export default function LeftPanel() {
             <Image src={chatIcon} alt="" />
             CHAT
           </div>
-          <div className="bridge">
+          <div className="bridge" onClick={() => {
+            window.open("https://www.bitlayer.org/bridge", "_blank")
+          }}>
             <Image src={bridgeIcon} alt="" />
             Bridge
           </div>

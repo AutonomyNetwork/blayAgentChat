@@ -125,7 +125,9 @@ export default function Chat() {
                         </div>
                       </div>
                       <div className="create-wallet">
-                        <button>Bridge</button>
+                        <button onClick={() => {
+                          window.open("https://www.bitlayer.org/bridge", "_blank")
+                        }}>Bridge</button>
                       </div>
                     </div>
                     <div className="connect-smart">
