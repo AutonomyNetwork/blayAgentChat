@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import blayLogo from "../assets/blayLogo.png";
 import landingImg from "../assets/landing-graphics.svg";
+import landingImgMb from "../assets/login-graphic.png";
 import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
@@ -30,7 +31,8 @@ export default function Landing() {
         </div>
         <div className="landing-main">
           <div className="landing-block">
-            <Image src={landingImg} alt="" className="landing-img" />
+            <Image src={landingImg} alt="" className="landing-img large-sx" />
+            <Image src={landingImgMb} alt="" className="landing-img img-mb" />
             <div className="landing-graphics">
               <div>Let’s make things happen</div>
               <div>

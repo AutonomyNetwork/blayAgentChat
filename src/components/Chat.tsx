@@ -15,6 +15,9 @@ import smartWallet from "../assets/smart-wallet.svg";
 import chatLoading from "../assets/typing.gif";
 import LeftPanel from "./leftPanel";
 import Terminal from "./Terminal";
+import blayLogo from "../assets/blayLogo.png";
+import HorizontalSlider from "./HorizontalSlider";
+import MobileMenu from "./MobileMenu";
 
 export default function Chat() {
   const { onCall: createUser, loading } = useAxios({
@@ -37,13 +40,13 @@ export default function Chat() {
   const { showChat, setShowChat, setNavLoading } = useContext(AppContext);
 
   useEffect(() => {
-    setNavLoading(false)
-  }, [])
+    setNavLoading(false);
+  }, []);
 
   const handleToggle = () => {
     createUser({}).then((res) => {
       if (res?.result?.wallet_address) setShowChat(true);
-      else setShowChat(false);// Toggle the state
+      else setShowChat(false); // Toggle the state
     });
   };
 
@@ -65,6 +68,15 @@ export default function Chat() {
 
   return (
     <div className="blay-main">
+      <div className="header header-mb">
+        <div>
+          {" "}
+          <Image src={blayLogo} alt="Blay Logo" />
+        </div>
+        <div>
+          <MobileMenu />
+        </div>
+      </div>
       <div className="container flex">
         <div className="item1">
           <LeftPanel />
