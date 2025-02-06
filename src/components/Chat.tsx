@@ -8,16 +8,15 @@ import React, { useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import arrowRight from "../assets/arrowRight.svg";
 import linkArrow from "../assets/ArrowSquareOut.svg";
+import blayLogo from "../assets/blayLogo.png";
 import chatSend from "../assets/chatSend.svg";
 import loader from "../assets/loader.gif";
 import profilePic from "../assets/profile-pic.png";
 import smartWallet from "../assets/smart-wallet.svg";
 import chatLoading from "../assets/typing.gif";
 import LeftPanel from "./leftPanel";
-import Terminal from "./Terminal";
-import blayLogo from "../assets/blayLogo.png";
-import HorizontalSlider from "./HorizontalSlider";
 import MobileMenu from "./MobileMenu";
+import Terminal from "./Terminal";
 
 export default function Chat() {
   const { onCall: createUser, loading } = useAxios({
