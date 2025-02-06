@@ -29,7 +29,7 @@ export default function BurgerMenu() {
       <div className={`menu ${isOpen ? "open" : ""}`}>
         {/* Close Button */}
         <button className="close" onClick={() => setIsOpen(false)}>
-         <Image src={closeIcon} alt="" />
+          <Image src={closeIcon} alt="" />
         </button>
 
         {/* Navigation Links */}
@@ -54,7 +54,9 @@ export default function BurgerMenu() {
                 </div>
               </li>
               <li>
-                <div className="bridge">
+                <div className="bridge" onClick={() => {
+                  window.open("https://www.bitlayer.org/bridge", "_blank")
+                }}>
                   <Image src={bridgeIcon} alt="" />
                   Bridge
                 </div>
