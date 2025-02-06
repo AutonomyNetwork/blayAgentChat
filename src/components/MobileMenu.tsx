@@ -18,7 +18,7 @@ export default function BurgerMenu() {
   const navigate = useRouter();
   const pathname = usePathname();
   const { disconnect } = useDisconnect();
-  const { setNavLoading } = useContext(AppContext);
+  const { setNavLoading, setShowChat } = useContext(AppContext);
 
   return (
     <>
@@ -68,6 +68,7 @@ export default function BurgerMenu() {
           <div>
             <div className="logout" onClick={() => {
               setNavLoading(true)
+              setShowChat(false)
               disconnect();
             }}>
               <Image src={logoutIcon} alt="Logout" />

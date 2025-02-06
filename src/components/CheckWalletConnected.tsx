@@ -1,11 +1,13 @@
+import { AppContext } from '@/app/Context';
 import { useUserService } from '@/helpers/userService';
 import { useAccount } from '@particle-network/connectkit';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 
 const CheckWalletConnected = () => {
   const { fetchUserWallet } = useUserService()
   const { isConnected, address, isDisconnected } = useAccount()
+  const { setShowChat } = useContext(AppContext)
   const timeoutRef = useRef<any>();
   const navigate = useRouter();
 
@@ -18,6 +20,7 @@ const CheckWalletConnected = () => {
     if (isDisconnected) {
       timeoutRef.current = setTimeout(() => {
         window.sessionStorage.clear();
+        setShowChat(false)
         navigate.push("/");
       }, 100);
     }

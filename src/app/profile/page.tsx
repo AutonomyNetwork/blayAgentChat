@@ -13,7 +13,7 @@ import lineDot from "../../assets/line.svg";
 export default function Profile() {
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
-  const { user, setNavLoading } = useContext(AppContext);
+  const { user, setNavLoading, setShowChat } = useContext(AppContext);
   const [tooltipVisible, setTooltipVisible] = useState<any>({});
 
   useEffect(() => {
@@ -67,6 +67,7 @@ export default function Profile() {
                     <button
                       onClick={() => {
                         setNavLoading(true)
+                        setShowChat(false)
                         disconnect();
                       }}
                     >
