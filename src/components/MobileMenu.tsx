@@ -11,11 +11,13 @@ import { useContext } from "react";
 import { AppContext } from "@/app/Context";
 import logoutIcon from "../assets/logout.svg";
 import closeIcon from "../assets/close-icon.svg";
+import { useDisconnect } from "@particle-network/connectkit";
 
 export default function BurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useRouter();
   const pathname = usePathname();
+  const { disconnect } = useDisconnect();
   const { setNavLoading } = useContext(AppContext);
 
   return (
@@ -64,7 +66,10 @@ export default function BurgerMenu() {
             </ul>
           </nav>
           <div>
-            <div className="logout">
+            <div className="logout" onClick={() => {
+              setNavLoading(true)
+              disconnect();
+            }}>
               <Image src={logoutIcon} alt="Logout" />
               <div>Logout</div>
             </div>
