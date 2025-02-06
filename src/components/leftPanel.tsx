@@ -4,6 +4,7 @@ import CustomButton from "@/components/CustomButton";
 import Image from "next/image";
 // import { useRouter } from "next/navigation";
 import chatIcon from "../assets/chatIcon.svg";
+import bridgeIcon from "../assets/bridge.svg";
 import telIcon from "../assets/telegram.svg";
 import webIcon from "../assets/web.svg";
 import xIcon from "../assets/x.svg";
@@ -14,8 +15,8 @@ import { AppContext } from "@/app/Context";
 
 export default function LeftPanel() {
   const navigate = useRouter();
-  const pathname = usePathname()
-  const { setNavLoading } = useContext(AppContext)
+  const pathname = usePathname();
+  const { setNavLoading } = useContext(AppContext);
   return (
     <div className="item-block">
       <div className="left-panel">
@@ -23,14 +24,21 @@ export default function LeftPanel() {
           <div className="header">
             <Image src={blayLogo} alt="Blay Logo" />
           </div>
-          <div className="left-panel-chat" onClick={() => {
-            if (pathname !== "/chat") {
-              setNavLoading(true)
-              navigate.push("/chat")
-            }
-          }}>
+          <div
+            className="left-panel-chat"
+            onClick={() => {
+              if (pathname !== "/chat") {
+                setNavLoading(true);
+                navigate.push("/chat");
+              }
+            }}
+          >
             <Image src={chatIcon} alt="" />
             CHAT
+          </div>
+          <div className="bridge">
+            <Image src={bridgeIcon} alt="" />
+            Bridge
           </div>
         </div>
         <div className="bottom-signin">

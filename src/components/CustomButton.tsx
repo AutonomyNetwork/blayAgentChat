@@ -1,7 +1,7 @@
 import {
   ConnectButton,
   useAccount,
-  useChains
+  useChains,
 } from "@particle-network/connectkit";
 import profilePic from "../assets/profile-pic.png";
 
@@ -13,21 +13,24 @@ import { useContext } from "react";
 
 const CustomButton = () => {
   const { isConnected, address, chainId } = useAccount();
-  const { setNavLoading } = useContext(AppContext)
+  const { setNavLoading } = useContext(AppContext);
   const chains = useChains();
   const navigate = useRouter();
   return isConnected ? (
     <div
       onClick={() => {
-        setNavLoading(true)
+        setNavLoading(true);
         navigate.push("/profile");
       }}
       className="profile-address"
     >
       <Image src={profilePic} alt="" />
       <div>
-        {formattedAddress(address)}
-        <div className="chain-name"> {chains?.find((ele) => ele.id === chainId)?.name}</div>
+        <div className="profile-wallet"> {formattedAddress(address)}</div>
+        <div className="chain-name">
+          {" "}
+          {chains?.find((ele) => ele.id === chainId)?.name}
+        </div>
       </div>
     </div>
   ) : (

@@ -80,7 +80,7 @@ export default function Profile() {
                       <div className="accoount-item1">
                         <div className="account-flex flex1">
                           <div className="acc-item">
-                            <div className="p-block">B</div>
+                            <div className="p-block">P</div>
                             <div className="p-wallet">
                               <div>Primary Wallet</div>
                               <div>{formattedAddress(address)}</div>
@@ -96,7 +96,7 @@ export default function Profile() {
                         <div className="account-flex flex2">
                           <Image src={lineDot} alt="" className="line" />
                           <div className="acc-item">
-                            <div className="p-block">P</div>
+                            <div className="p-block">B</div>
                             <div className="p-wallet">
                               <div>My Blay Wallet</div>
                               <div>{formattedAddress(user?.wallet_address)}</div>

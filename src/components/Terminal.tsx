@@ -95,7 +95,7 @@ const Terminal: React.FC = () => {
             style={{
               display: "inline-block",
               width: "6px",
-              backgroundColor: "lime",
+              backgroundColor: "#e36f19",
               height: "1em",
             }}
           ></span>
