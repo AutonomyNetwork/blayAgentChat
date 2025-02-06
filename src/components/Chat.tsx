@@ -44,7 +44,7 @@ export default function Chat() {
 
   const handleToggle = () => {
     createUser({}).then((res) => {
-      if (res?.result?.wallet_address) setShowChat(true);
+      if (res?.result) setShowChat(true);
       else setShowChat(false); // Toggle the state
     });
   };
