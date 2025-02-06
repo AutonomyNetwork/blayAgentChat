@@ -48,7 +48,7 @@ export const useUserService = () => {
   };
 
   const fetchUserWallet = async ({ address }: any) => {
-    setNavLoading(true)
+    setNavLoading(true);
     setLoading(true);
     setError(null);
 

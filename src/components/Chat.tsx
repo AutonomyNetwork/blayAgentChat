@@ -36,7 +36,7 @@ export default function Chat() {
     needToken: true,
   });
   const [msg, setMsg] = useState("");
-  const [resMsgs, setResMsg] = useState<any>([]);
+  const [resMsgs, setResMsg] = useState<any>(null);
   const { showChat, setShowChat, setNavLoading } = useContext(AppContext);
 
   useEffect(() => {
@@ -154,7 +154,8 @@ export default function Chat() {
                   >
                     <div>
                       <div>
-                        <Terminal />
+                        {resMsgs?.length === 0 ?
+                          <Terminal /> : null}
                       </div>
                       <div className="chat-default">
                         <ul>

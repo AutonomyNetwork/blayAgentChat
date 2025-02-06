@@ -13,9 +13,13 @@ import xIcon from "../assets/x.svg";
 import { AppContext } from "./Context";
 
 export default function Landing() {
-  const { isReady } = useContext(AppContext);
+  const { isReady, setNavLoading } = useContext(AppContext);
   const { address } = useAccount();
   const navigate = useRouter();
+
+  useEffect(() => {
+    setNavLoading(false)
+  }, [])
 
   useEffect(() => {
     if (isReady && address) {

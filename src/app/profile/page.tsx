@@ -66,6 +66,7 @@ export default function Profile() {
                   <div className="signout-btn">
                     <button
                       onClick={() => {
+                        setNavLoading(true)
                         disconnect();
                       }}
                     >
