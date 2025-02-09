@@ -21,15 +21,19 @@ export default function Profile() {
   }, [])
 
   const copyToClipboard = (text: string, key: string) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        console.log("Text copied to clipboard");
-        showTooltip(key); // Show tooltip after copying
-      },
-      (err) => {
-        console.error("Failed to copy text: ", err);
-      }
-    );
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    
+    try {
+      document.execCommand("copy");
+      showTooltip(key); // Show tooltip after copying
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  
+    document.body.removeChild(textArea);
   };
 
   const showTooltip = (key: string) => {
